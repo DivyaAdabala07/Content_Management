@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Editor</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-image: url('https://i.pinimg.com/originals/fc/12/af/fc12af4fdda0c0ec5cf23ae293d11a7d.png');
+        }
+
+h1 {
+    text-align: center;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color:black;
+    font-size: x-large;
+}
+
+.input-section {
+    margin-bottom: 20px;
+    width: 30cm;
+}
+
+
+.label-section {
+    text-decoration: wavy;
+    font-size: 0.5cm;
+    color: WHITE;
+}
+
+.div-section {
+    height: 1cm;
+    border-radius: 8px;
+    margin: 0.5cm;
+}
+
+.preview {
+    width: 15cm;
+    height: 15cm;
+}
+
+.video-preview {
+    width: 15cm;
+    height: auto;
+}
+
+.input-section label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-section input[type="text"],
+.input-section input[type="file"] {
+    width: 100%;
+    padding: 5px;
+}
+
+.button-section {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button-section button {
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.data-container {
+    max-height: 300px;
+    /* Adjust the height as needed */
+}
+
+.card {
+    border: 1px solid grey;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    /* Replace with the path to yourimage */
+    background-size: cover;
+    background-position: center;
+    overflow-y: scroll;
+
+}
+
+.card-header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.card-title {
+    margin: 0;
+}
+
+.card-body {
+    margin-top: 10px;
+}
+    </style>
+</head>
+<body>
+    <section id="one">
+        <section id="two">
+    <h1 class="three"><b>Create a Travel Blog</b></h1>
+    
+    <div class="card">
+        <div class="input-section">
+          <b><label class="label-section" for="title">TITLE:</label></b>
+          <input class="div-section" type="text" id="title" placeholder="Enter title">
+        </div><br>
+        
+        <div class="input-section">
+          <b><label class="label-section" for="content">CONTENT:</label></b>
+          <textarea class="div-section" id="content" placeholder="Enter content">
+          </textarea>
+        </div><br>
+    
+        <div class="input-section">
+          <b><label class="label-section" for="image">IMAGE:</label></b>
+          <input type="file" id="image" accept="image/*">
+        </div><br>
+    
+        <div class="input-section">
+          <b><label class="label-section" for="video">VIDEO:</label></b>
+          <input type="file" id="video" accept="video/*">
+        </div><br>
+      </div>
+      <div class="button-section">
+        <button onclick="submitForm()">SUBMIT</button>
+      </div>
+    
+      <div class="data-container">
+        <div class="data-section" id="dataSection">
+        </div>
+      </div>
+    </section>
+    </section>
+</body>
+    <!-- JavaScript to handle user interactions -->
+    <script>
+        function submitForm() {
+    var title = document.getElementById('title').value;
+    var content = document.getElementById('content').value;
+    var image = document.getElementById('image').files[0];
+    var video = document.getElementById('video').files[0];
+
+    var dataSection = document.getElementById('dataSection');
+
+    var newData = "<div class='card'>" +
+      "<div class='card-header'>" +
+      "<h3 class='card-title'><b>Title:</b>" + title + "</h3>" +
+      "</div>" +
+      "<div class='card-body'>" +
+      "<p><b>Content: </b>" + content + "</p>";
+
+    if (image) {
+      var imagePreview = document.createElement('img');
+      imagePreview.src = URL.createObjectURL(image);
+      imagePreview.style.maxWidth = '50%';
+      imagePreview.style.height = '20%';
+      imagePreview.style.marginTop = '2px';
+      newData += "<p><b>Image:</b></p>";
+      newData += "<div class='card-body-image'>" +
+        "<img class='preview' src='" + imagePreview.src + "' alt='Selected Image'>" +
+        "</div>";
+    }
+    
+    if (video) {
+      var videoPreview = document.createElement('video');
+      videoPreview.src = URL.createObjectURL(video);
+      videoPreview.controls = true;
+      videoPreview.autoplay = true;
+      videoPreview.style.maxWidth = '50%';
+      videoPreview.style.height = '20%';
+      videoPreview.style.marginTop = '10px';
+      newData += "<p><b>Video:</b></p>";
+      newData += "<div class='card-body-video'>" +
+        "<video class='video-preview' src='" + videoPreview.src + "' controls autoplay></video>" +
+        "</div>";
+    }
+
+    newData += "</div></div>";
+
+    dataSection.innerHTML += newData;
+
+    document.getElementById('title').value = '';
+    document.getElementById('content').value = '';
+    document.getElementById('image').value = '';
+    document.getElementById('video').value = '';
+  }
+    </script>
+</html>
